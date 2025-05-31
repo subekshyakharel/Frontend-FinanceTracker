@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CustomInput from './CustomInput';
 import { useForm } from '../hooks/useForm';
-import { loginUser, postNewUser } from '../../helpers/axios';
+import { loginUser } from '../../helpers/axios';
 import { toast } from 'react-toastify';
 import { useUser } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const initialState = {
     email:"", 
@@ -14,14 +14,18 @@ const initialState = {
 }
 
 const LoginForm = () => {
-  const {user, setUser} = useUser();
   const navigate = useNavigate();
-    // const [form, setForm] = useState({});
+  const location = useLocation();
+  // console.log(location)
+
+    const {user, setUser} = useUser();
     const {form , setForm, handleOnChange}=useForm(initialState);
 
+    //goto ra uselocation  le chai arko tab ma open garda jun open gareko teo kholxa yessko lagi auth ma oani gayera state from :location dina parxa navigate ko thau ma
+    const goto = location?.state?.from?.pathname || "/dashboard"
     useEffect(()=>{
-      user?._id && navigate("/dashboard")
-    }, [user?._id, navigate])
+      user?._id && navigate(goto)
+    }, [user?._id, navigate, goto])
 
     const fields = [
   {
@@ -42,17 +46,9 @@ const LoginForm = () => {
   },
 ]
 
-// const handleOnChange = e =>{
-//     const {name, value} = e.target;
-//     setForm({
-//         ...form, 
-//         [name]:value,
-//     })
-// }
 
 const handleOnSubmit =async e =>{
     e.preventDefault();
-    // console.log(form)
 
    const pendingResp= loginUser(form);
     toast.promise(pendingResp, {
@@ -60,8 +56,9 @@ const handleOnSubmit =async e =>{
     });
      const {status, message, accessJWT, user }= await pendingResp;
     toast[status](message);
- console.log(accessJWT, user);
  setUser(user);
+ localStorage.setItem("accessJWT", accessJWT);
+ localStorage.setItem("userInfo",JSON.stringify(user) );
     
 }
 

@@ -1,6 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap"
 import LoginForm from "../components/LoginForm"
-import FinanceTips from "../components/FinanceTips"
 import { BsGraphUpArrow } from "react-icons/bs";
 import { BsGraphDownArrow } from "react-icons/bs";
 

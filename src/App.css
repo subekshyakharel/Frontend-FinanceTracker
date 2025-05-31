@@ -5,5 +5,16 @@
 }
 .main
 {
-    height: calc(100vh - 110px);
+    min-height: calc(100vh - 110px);
+}
+
+.table, tr, th, td {
+    background: transparent !important;
+    color: white !important;
+}
+.in{
+    color: #198754 !important;
+}
+.out{
+    color: red !important;
 }

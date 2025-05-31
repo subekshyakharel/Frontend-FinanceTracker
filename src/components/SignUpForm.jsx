@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CustomInput from './CustomInput';
@@ -54,14 +53,6 @@ const SignUpForm = () => {
             value:form.confirmPassword,
         }, 
     ]
-
-    // const handleOnChange = e =>{
-    //     const {name, value} = e.target;
-    //    setForm({
-    //     ...form,
-    //      [name]: value, 
-    // })
-    // }
 
     const handleOnSubmit = async e=>{
         e.preventDefault();
