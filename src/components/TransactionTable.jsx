@@ -8,13 +8,10 @@ import { toast } from "react-toastify";
 
 const TransactionTable = () => {
   const [displayTran, setDisplayTran] = useState([]);
-  const { transactions, toggleModal , getTransaction} = useUser();
+  const { transactions, toggleModal , getTransaction , balance} = useUser();
   const [idsToDelete, setIdsToDelete] = useState([]);
-  const balance = displayTran.reduce((acc, t) => {
-    return t.type === "income" ? acc + t.amount : acc - t.amount;
-  }, 0);
 
-  useEffect(() => {
+      useEffect(() => {
     setDisplayTran(transactions);
   }, [transactions]);
 
@@ -26,6 +23,7 @@ const TransactionTable = () => {
     });
     setDisplayTran(filteredArg);
   };
+
 
   const handleOnCheck = (e) => {
     const { checked, value } = e.target;

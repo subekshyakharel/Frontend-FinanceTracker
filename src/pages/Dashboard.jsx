@@ -1,19 +1,28 @@
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import { useUser } from '../context/UserContext';
+import { useEffect } from 'react';
+import DashboardBalance from '../components/DashboardBalance';
+import { Container } from 'react-bootstrap';
+import DashboardChart from '../components/DashboardChart';
+import BarChart from '../components/BarChart';
 
 const Dashboard = () => {
+  const {getTransaction } = useUser();
+
+    useEffect(() => {
+    getTransaction();
+  }, []);
+
   return (
-    <div>
-      <Container className='p-5'>
-        <Row className='bg-dark p-5 rounded'>
-            <Col md={6}>
-           TO DO dashboard
-            </Col>
-        </Row>
-      </Container>
-    </div>
-  )
-}
+    <>
+    <div className='p-5'>
+    <Container className='bg-dark p-4 rounded'>
+      <DashboardBalance/>
+       <DashboardChart/>
+       <BarChart/>
+   </Container>
+   </div>
+    </>
+  );
+};
 
 export default Dashboard;
