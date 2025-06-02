@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postNewUser } from '../../helpers/axios';
 import { useForm } from '../hooks/useForm';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const initialState = {
@@ -19,6 +21,8 @@ const SignUpForm = () => {
 
     // const [form, setForm] = useState({});
     const {form, setForm, handleOnChange}= useForm({})
+    const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate();
     const fields = [
         {
             label:"Name", 
@@ -56,6 +60,7 @@ const SignUpForm = () => {
 
     const handleOnSubmit = async e=>{
         e.preventDefault();
+        setIsLoading(true)
         const {confirmPassword, ...rest} = form;
         if(confirmPassword !== rest.password)
         {
@@ -65,8 +70,9 @@ const SignUpForm = () => {
       
              const {status, message} = await postNewUser(rest)
         toast[status](message);
-     status=="success" && setForm(initialState)
-    }
+     status=="success" && navigate("/") && setForm(initialState) 
+     setIsLoading(false)
+}
   return (
     <div className='border rounded p-3'>
         <h4 className='mb-4'>Sign up now!</h4>
@@ -77,7 +83,7 @@ const SignUpForm = () => {
       
 
       <div className="d-grid">
-              <Button variant="primary" type="submit">
+              <Button variant="primary" disabled={isLoading} type="submit">
         Submit
       </Button>
       </div>

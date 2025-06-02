@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CustomInput from './CustomInput';
@@ -16,6 +16,8 @@ const initialState = {
 const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isLoading, setIsLoading] = useState(false)
   // console.log(location)
 
     const {user, setUser} = useUser();
@@ -49,6 +51,7 @@ const LoginForm = () => {
 
 const handleOnSubmit =async e =>{
     e.preventDefault();
+    setIsLoading(true)
 
    const pendingResp= loginUser(form);
     toast.promise(pendingResp, {
@@ -59,6 +62,7 @@ const handleOnSubmit =async e =>{
  setUser(user);
  localStorage.setItem("accessJWT", accessJWT);
  localStorage.setItem("userInfo",JSON.stringify(user) );
+ setIsLoading(false)
     
 }
 
@@ -72,7 +76,7 @@ const handleOnSubmit =async e =>{
                 })
             }
       <div className="d-grid">
-        <Button variant="primary" type="submit">
+        <Button variant="primary" disabled={isLoading} type="submit">
         Submit
       </Button>
       </div>
