@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { postNewUser } from '../../helpers/axios';
 import { useForm } from '../hooks/useForm';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const initialState = {
@@ -91,6 +91,8 @@ const SignUpForm = () => {
         Submit
       </Button>
       </div>
+
+      <p className='text-center mt-3'>Already have an account? <Link to="/">Login here</Link></p>
 
     </Form>
     </div>

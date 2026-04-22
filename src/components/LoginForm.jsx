@@ -6,7 +6,7 @@ import { useForm } from '../hooks/useForm';
 import { loginUser } from '../../helpers/axios';
 import { toast } from 'react-toastify';
 import { useUser } from '../context/UserContext';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const initialState = {
     email:"", 
@@ -80,7 +80,7 @@ const handleOnSubmit =async e =>{
         Submit
       </Button>
       </div>
-      
+      <p className='text-center mt-3'>Don't have an account? <Link to="/signup">Sign up here</Link></p>
     </Form>
       </div>
     </>
