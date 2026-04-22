@@ -68,7 +68,11 @@ const SignUpForm = () => {
         }
 
       
-             const {status, message} = await postNewUser(rest)
+        const pendingResp = postNewUser(rest);
+         toast.promise(pendingResp, {
+          pending:"Please wait...."
+        });
+             const {status, message} = await pendingResp;
         toast[status](message);
      status=="success" && navigate("/") && setForm(initialState) 
      setIsLoading(false)
